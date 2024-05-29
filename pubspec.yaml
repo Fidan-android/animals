@@ -1,0 +1,68 @@
+name: animals
+description: "Developed by DevApp"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.2 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # MobX
+  mobx: ^2.1.3
+  flutter_mobx: ^2.0.6+5
+
+  # Shared Preferences
+  shared_preferences: 2.1.1
+
+  # Others
+  flutter_hooks: ^0.18.5+1
+  get_it: ^7.2.0
+  provider: ^6.0.5
+  equatable: ^2.0.5
+  auto_route: ^5.0.4
+  flutter_svg: ^2.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  auto_route_generator: ^5.0.3
+  mobx_codegen: ^2.1.1
+  build_runner: ^2.3.3
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  uses-material-design: false
+
+  assets:
+    - assets/images/ic_logo.svg
+    - assets/images/onboarding/animals.png
+    - assets/images/onboarding/quiz.png
+    - assets/images/free/bear.png
+    - assets/images/free/bull.png
+    - assets/images/free/pig.png
+    - assets/images/free/rabbit.png
+    - assets/images/free/turtle.png
+    - assets/images/sub/chicken.png
+    - assets/images/sub/duck.png
+    - assets/images/sub/german.png
+    - assets/images/sub/ostrich.png
+    - assets/images/sub/shark.png
+    - assets/images/sub/sheep.png
+    - assets/images/sub/whale.png
+    - assets/images/sub/wolf.png
+
+  fonts:
+    - family: SFProDisplay
+      fonts:
+        - asset: assets/fonts/SFProDisplay-Regular.otf
+          weight: 500
+
