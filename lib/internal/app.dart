@@ -1,5 +1,6 @@
 import 'package:animals/config/navigation_service.dart';
 import 'package:animals/config/route/app_route.dart';
+import 'package:animals/data/repository/animal_repository.dart';
 import 'package:animals/data/repository/storage_repository.dart';
 import 'package:animals/data/repository/theme_repository.dart';
 import 'package:animals/domain/state/theme/theme_state.dart';
@@ -41,6 +42,7 @@ class _ApplicationPageState extends State<Application> {
                   Provider.of<SharedPreferences>(context, listen: false),
                 ),
               ),
+              Provider(create: (context) => AnimalRepository()),
               /* states */
               Provider(
                 create: (_) => ThemeState(ThemeRepository())..getTheme(),

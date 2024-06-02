@@ -18,6 +18,13 @@ dependencies:
   # Shared Preferences
   shared_preferences: 2.1.1
 
+  # Carousel slider
+  carousel_slider: ^4.2.1
+
+  # Hive database
+  hive: ^2.2.3
+  hive_flutter:
+
   # Others
   flutter_hooks: ^0.18.5+1
   get_it: ^7.2.0
@@ -33,6 +40,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   auto_route_generator: ^5.0.3
   mobx_codegen: ^2.1.1
+  hive_generator:
   build_runner: ^2.3.3
 
 # For information on the generic Dart part of this file, see the
@@ -59,6 +67,9 @@ flutter:
     - assets/images/sub/sheep.png
     - assets/images/sub/whale.png
     - assets/images/sub/wolf.png
+    - assets/images/main/settings.svg
+    - assets/images/main/arrow_forward.svg
+    - assets/images/main/lock.svg
 
   fonts:
     - family: SFProDisplay

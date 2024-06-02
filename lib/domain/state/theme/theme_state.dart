@@ -16,7 +16,7 @@ abstract class ThemeStateBase with Store {
         useMaterial3: false,
         canvasColor: Colors.transparent,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+        scaffoldBackgroundColor: const Color(0xFFFAFAFA),
         primaryColor: const Color(0xFF1A1A1A),
         primaryTextTheme: const TextTheme(
           bodyMedium: TextStyle(

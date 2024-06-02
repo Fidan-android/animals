@@ -1,6 +1,10 @@
+import 'package:animals/data/repository/animal_repository.dart';
+import 'package:animals/data/repository/storage_repository.dart';
+import 'package:animals/domain/state/splash/splash_state.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -10,6 +14,17 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  late SplashState _splashState;
+
+  @override
+  void didChangeDependencies() {
+    _splashState = SplashState(
+        Provider.of<StorageRepository>(context, listen: false),
+        Provider.of<AnimalRepository>(context, listen: false));
+    _splashState.checkFirstLaunch();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +72,15 @@ class _SplashPageState extends State<SplashPage> {
                               width: double.infinity,
                               height: 64,
                               child: ElevatedButton(
-                                onPressed: () => AutoRouter.of(context)
-                                    .replaceNamed("/onboarding-page"),
+                                onPressed: () {
+                                  if (_splashState.isFirstLaunch == true) {
+                                    AutoRouter.of(context)
+                                        .replaceNamed("/onboarding-page");
+                                  } else {
+                                    AutoRouter.of(context)
+                                        .replaceNamed("/main-page");
+                                  }
+                                },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       Theme.of(context).primaryColor,
