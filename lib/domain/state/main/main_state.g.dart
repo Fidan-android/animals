@@ -25,6 +25,22 @@ mixin _$MainState on MainStateBase, Store {
     });
   }
 
+  late final _$animalModelAtom =
+      Atom(name: 'MainStateBase.animalModel', context: context);
+
+  @override
+  AnimalModel? get animalModel {
+    _$animalModelAtom.reportRead();
+    return super.animalModel;
+  }
+
+  @override
+  set animalModel(AnimalModel? value) {
+    _$animalModelAtom.reportWrite(value, super.animalModel, () {
+      super.animalModel = value;
+    });
+  }
+
   late final _$MainStateBaseActionController =
       ActionController(name: 'MainStateBase', context: context);
 
@@ -40,9 +56,21 @@ mixin _$MainState on MainStateBase, Store {
   }
 
   @override
+  void onSelectCurrentModel(int index) {
+    final _$actionInfo = _$MainStateBaseActionController.startAction(
+        name: 'MainStateBase.onSelectCurrentModel');
+    try {
+      return super.onSelectCurrentModel(index);
+    } finally {
+      _$MainStateBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-animals: ${animals}
+animals: ${animals},
+animalModel: ${animalModel}
     ''';
   }
 }

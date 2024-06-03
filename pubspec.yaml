@@ -70,6 +70,9 @@ flutter:
     - assets/images/main/settings.svg
     - assets/images/main/arrow_forward.svg
     - assets/images/main/lock.svg
+    - assets/images/settings/arrow_left.svg
+    - assets/images/premium/animals.png
+    - assets/images/premium/background.png
 
   fonts:
     - family: SFProDisplay

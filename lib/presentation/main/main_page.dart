@@ -1,7 +1,9 @@
+import 'package:animals/config/route/app_route.gr.dart';
 import 'package:animals/data/hive/models/animal/animal_model.dart';
 import 'package:animals/data/repository/animal_repository.dart';
 import 'package:animals/data/repository/storage_repository.dart';
 import 'package:animals/domain/state/main/main_state.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -48,21 +50,25 @@ class _MainPageState extends State<MainPage> {
                           .bodyMedium
                           ?.copyWith(fontWeight: FontWeight.w700, fontSize: 24),
                     ),
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(color: Color(0x14000000), blurRadius: 16)
-                        ],
+                    GestureDetector(
+                      onTap: () =>
+                          AutoRouter.of(context).pushNamed("/settings-page"),
+                      child: Container(
+                        width: 48,
+                        height: 48,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(color: Color(0x14000000), blurRadius: 16)
+                          ],
+                        ),
+                        child: SvgPicture.asset(
+                          "assets/images/main/settings.svg",
+                          fit: BoxFit.scaleDown,
+                        ),
                       ),
-                      child: SvgPicture.asset(
-                        "assets/images/main/settings.svg",
-                        fit: BoxFit.scaleDown,
-                      ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -80,11 +86,11 @@ class _MainPageState extends State<MainPage> {
                   return CarouselSlider.builder(
                     itemCount: _mainState.animals.length,
                     options: CarouselOptions(
-                      height: 400.0,
-                      enlargeCenterPage: true,
-                      aspectRatio: 2.0,
-                      initialPage: 2,
-                    ),
+                        height: 400.0,
+                        enlargeCenterPage: true,
+                        onPageChanged: (index, reason) {
+                          _mainState.onSelectCurrentModel(index);
+                        }),
                     itemBuilder: (context, index, realIndex) {
                       AnimalModel animal = _mainState.animals[index];
                       return ClipRRect(
@@ -113,6 +119,7 @@ class _MainPageState extends State<MainPage> {
                                                   BlendMode.saturation,
                                             )
                                           : null,
+                                      width: double.infinity,
                                       child: Image.asset(
                                         "assets/images/${animal.image}",
                                         fit: BoxFit.fill,
@@ -159,6 +166,47 @@ class _MainPageState extends State<MainPage> {
                     },
                   );
                 }),
+              ),
+              Observer(
+                builder: (_) => Visibility(
+                  visible: _mainState.animalModel?.isLock == true,
+                  child: Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 24, right: 16, left: 16),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 64,
+                            child: ElevatedButton(
+                              onPressed: () => AutoRouter.of(context).push(
+                                AnimalRoute(
+                                    index: _mainState.animals
+                                        .indexOf(_mainState.animalModel),
+                                    animalModel: _mainState.animalModel!),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(64),
+                                ),
+                              ),
+                              child: Text(
+                                "Unlock an Animal",
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .bodyMedium
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

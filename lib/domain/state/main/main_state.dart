@@ -25,5 +25,15 @@ abstract class MainStateBase with Store {
     if (_storageRepository.shared<bool>(SharedKeys.subscription.key) == true) {
       animals.addAll(_animalRepository.onGetPaidAnimals());
     }
+
+    animalModel = animals[0];
+  }
+
+  @observable
+  AnimalModel? animalModel;
+
+  @action
+  void onSelectCurrentModel(int index) {
+    animalModel = animals[index];
   }
 }

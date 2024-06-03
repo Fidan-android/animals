@@ -29,7 +29,7 @@ abstract class SplashStateBase with Store {
               "A bull is one of the most famous and positive animals on the market. "
               "The market is in positive territory, with stock and investors placing more money into "
               "the market. If the market is bullish, investors are confident about the market, which increases "
-              "the price of stocks. This can continue for many years.In particular, the time period between 31 December "
+              "the price of stocks. This can continue for many years. \n\nIn particular, the time period between 31 December "
               "2011 and March 2015 was thought to be an upbeat time in this Indian market. The Sensex was up by over 98% this time.",
           image: "free/bull.png",
           isPaid: false));
@@ -48,7 +48,7 @@ abstract class SplashStateBase with Store {
           name: "Turtle",
           description:
               "A turtle refers to investors in the stock market who invest for a longer period of time. as one makes the fewest number"
-              " of trades and doesn’t focus on short term gains or losses. The turtle works as the opposite of the rabbit. "
+              " of trades and doesn’t focus on short term gains or losses. \n\nThe turtle works as the opposite of the rabbit. "
               "For example, a trader can consider investing in an IT company as the stock sees long term growth. So, after "
               "investing in the stock, one can expect the bearish trend to continue for some time. But in the long run, it can "
               "have better returns.",
@@ -59,7 +59,7 @@ abstract class SplashStateBase with Store {
           description:
               "Rabbits are traders who purchase stocks and hold their positions for a short amount of time. They tend to be "
               "intraday traders who are seeking a quick return. Rabbits may not even have an overnight position and are "
-              "always searching for quick cash in the daytime.Consider, for instance, a scenario where shares of a particular "
+              "always searching for quick cash in the daytime. \n\nConsider, for instance, a scenario where shares of a particular "
               "company were purchased at 11:30 a.m. The decision to buy the stock was based on the anticipation of a price "
               "increase in the near future. As the stock aligned with expectations and saw an uptick around 2:30 p.m. on the "
               "same day, the decision was made to sell, realising a profit. This scenario illustrates the behaviour of a rabbit investor.",
@@ -70,7 +70,7 @@ abstract class SplashStateBase with Store {
           description:
               "An investor is a pig who is emotional and greedy. The returns aren’t enough for them. They also ignore "
               "established investment strategies and attempt to earn a huge profit. As a result, pigs always suffer a "
-              "massive loss or gain. In a similar scenario, if a profit is made over the long term and the decision is "
+              "massive loss or gain. \n\nIn a similar scenario, if a profit is made over the long term and the decision is "
               "to stay invested with the hope of maximising returns, it is categorised as a pig-investor. This approach "
               "entails the potential for significant gains but also the risk of losing all profits.",
           image: "free/pig.png",
@@ -81,7 +81,7 @@ abstract class SplashStateBase with Store {
           description:
               "A chicken is an investor who flies out in difficult times. They get scared even at the slightest bear "
               "tendency and make rash decisions about their investments. They are often unaware that volatility is "
-              "a component of the stock market and are constantly worried about losing their money. For example, a "
+              "a component of the stock market and are constantly worried about losing their money. \n\nFor example, a "
               "lot of investors sell all their stock when they see a red line on the graph. This can affect their "
               "investment and reduce the value of them.",
           image: "sub/chicken.png",
@@ -109,7 +109,7 @@ abstract class SplashStateBase with Store {
           name: "Dog",
           description:
               "Dogs are stocks that are less popular but are part of a larger market. They’re hammered because of "
-              "their performance. Analysts and investors are expecting that they will recover. A noteworthy "
+              "their performance. Analysts and investors are expecting that they will recover. \n\nA noteworthy "
               "illustration is found in smaller struggling IT firms. Hindered by competition and a lack of recognition, "
               "they may rebound upon identifying and rectifying their shortcomings.",
           image: "sub/german.png",
