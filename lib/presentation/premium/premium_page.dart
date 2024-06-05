@@ -1,6 +1,10 @@
+import 'package:animals/data/repository/storage_repository.dart';
+import 'package:animals/domain/state/premium/premium_state.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 
 class PremiumPage extends StatefulWidget {
   const PremiumPage({super.key});
@@ -10,6 +14,34 @@ class PremiumPage extends StatefulWidget {
 }
 
 class _PremiumPageState extends State<PremiumPage> {
+  late PremiumState _premiumState;
+  late List<ReactionDisposer> _disposers;
+
+  @override
+  void initState() {
+    _premiumState =
+        PremiumState(Provider.of<StorageRepository>(context, listen: false));
+    _disposers = [
+      reaction((p0) => _premiumState.isSuccessPaid, (isSuccessPaid) {
+        if (isSuccessPaid == true) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content:
+                  Text("The subscription has been successfully activated")));
+          AutoRouter.of(context).pop();
+        }
+      })
+    ];
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    for (var d in _disposers) {
+      d();
+    }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +123,7 @@ class _PremiumPageState extends State<PremiumPage> {
                         width: double.infinity,
                         height: 64,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => _premiumState.onGetAccess(),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: Colors.white,

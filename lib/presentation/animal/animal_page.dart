@@ -76,37 +76,44 @@ class _AnimalPageState extends State<AnimalPage> {
                         style: Theme.of(context).primaryTextTheme.bodyMedium,
                       ),
                     ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 24, right: 16, left: 16),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 64,
-                              child: ElevatedButton(
-                                onPressed: () => AutoRouter.of(context)
-                                    .push(QuizRoute(index: widget.index)),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(64),
+                    Visibility(
+                      visible: widget.animalModel.isLock == true,
+                      child: Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 24, right: 16, left: 16),
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: 64,
+                                child: ElevatedButton(
+                                  onPressed: () => AutoRouter.of(context)
+                                      .push(QuizRoute(index: widget.index))
+                                      .then((value) => setState(() {
+                                            widget.animalModel.isLock =
+                                                (value as AnimalModel).isLock;
+                                          })),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(64),
+                                    ),
                                   ),
-                                ),
-                                child: Text(
-                                  "Play Quiz",
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .bodyMedium
-                                      ?.copyWith(color: Colors.white),
+                                  child: Text(
+                                    "Play Quiz",
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .bodyMedium
+                                        ?.copyWith(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     )
                   ],

@@ -73,6 +73,8 @@ flutter:
     - assets/images/settings/arrow_left.svg
     - assets/images/premium/animals.png
     - assets/images/premium/background.png
+    - assets/images/quiz/correct.svg
+    - assets/images/quiz/wrong.svg
 
   fonts:
     - family: SFProDisplay

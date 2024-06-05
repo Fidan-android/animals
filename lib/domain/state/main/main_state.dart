@@ -26,14 +26,19 @@ abstract class MainStateBase with Store {
       animals.addAll(_animalRepository.onGetPaidAnimals());
     }
 
-    animalModel = animals[0];
+    animalModel = null;
+    animalModel = animals[currentIndex ?? 0];
   }
+
+  @observable
+  int? currentIndex;
 
   @observable
   AnimalModel? animalModel;
 
   @action
   void onSelectCurrentModel(int index) {
-    animalModel = animals[index];
+    currentIndex = index;
+    animalModel = animals[currentIndex ?? 0];
   }
 }

@@ -18,6 +18,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final CarouselController _carouselController = CarouselController();
   late MainState _mainState;
 
   @override
@@ -51,8 +52,9 @@ class _MainPageState extends State<MainPage> {
                           ?.copyWith(fontWeight: FontWeight.w700, fontSize: 24),
                     ),
                     GestureDetector(
-                      onTap: () =>
-                          AutoRouter.of(context).pushNamed("/settings-page"),
+                      onTap: () => AutoRouter.of(context)
+                          .pushNamed("/settings-page")
+                          .then((value) => _mainState.onLoadAnimals()),
                       child: Container(
                         width: 48,
                         height: 48,
@@ -83,7 +85,9 @@ class _MainPageState extends State<MainPage> {
                       ),
                     );
                   }
+
                   return CarouselSlider.builder(
+                    carouselController: _carouselController,
                     itemCount: _mainState.animals.length,
                     options: CarouselOptions(
                         height: 400.0,
@@ -95,71 +99,81 @@ class _MainPageState extends State<MainPage> {
                       AnimalModel animal = _mainState.animals[index];
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(24),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.14),
-                                  blurRadius: 16,
-                                  blurStyle: BlurStyle.outer)
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Container(
-                                      foregroundDecoration: animal.isLock
-                                          ? const BoxDecoration(
-                                              color: Color(0xFF747474),
-                                              backgroundBlendMode:
-                                                  BlendMode.saturation,
-                                            )
-                                          : null,
-                                      width: double.infinity,
-                                      child: Image.asset(
-                                        "assets/images/${animal.image}",
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: animal.isLock,
-                                      child: Align(
-                                        alignment: Alignment.topRight,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/main/lock.svg"),
+                        child: GestureDetector(
+                          onTap: () => AutoRouter.of(context)
+                              .push(
+                                AnimalRoute(
+                                    index: _mainState.animals
+                                        .indexOf(_mainState.animalModel),
+                                    animalModel: _mainState.animalModel!),
+                              )
+                              .then((value) => _mainState.onLoadAnimals()),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.14),
+                                    blurRadius: 16,
+                                    blurStyle: BlurStyle.outer)
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Container(
+                                        foregroundDecoration: animal.isLock
+                                            ? const BoxDecoration(
+                                                color: Color(0xFF747474),
+                                                backgroundBlendMode:
+                                                    BlendMode.saturation,
+                                              )
+                                            : null,
+                                        width: double.infinity,
+                                        child: Image.asset(
+                                          "assets/images/${animal.image}",
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Visibility(
+                                        visible: animal.isLock,
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: SvgPicture.asset(
+                                                "assets/images/main/lock.svg"),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(32),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      animal.name,
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.w700),
-                                    ),
-                                    SvgPicture.asset(
-                                        "assets/images/main/arrow_forward.svg"),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(32),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        animal.name,
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.w700),
+                                      ),
+                                      SvgPicture.asset(
+                                          "assets/images/main/arrow_forward.svg"),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -181,12 +195,14 @@ class _MainPageState extends State<MainPage> {
                             width: double.infinity,
                             height: 64,
                             child: ElevatedButton(
-                              onPressed: () => AutoRouter.of(context).push(
-                                AnimalRoute(
-                                    index: _mainState.animals
-                                        .indexOf(_mainState.animalModel),
-                                    animalModel: _mainState.animalModel!),
-                              ),
+                              onPressed: () => AutoRouter.of(context)
+                                  .push(
+                                    AnimalRoute(
+                                        index: _mainState.animals
+                                            .indexOf(_mainState.animalModel),
+                                        animalModel: _mainState.animalModel!),
+                                  )
+                                  .then((value) => _mainState.onLoadAnimals()),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).primaryColor,
                                 shape: RoundedRectangleBorder(

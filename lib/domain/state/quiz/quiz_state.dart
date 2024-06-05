@@ -11,6 +11,7 @@ abstract class QuizStateBase with Store {
 
   final AnimalRepository _animalRepository;
 
+  @observable
   AnimalModel? animalModel;
 
   List<List<Map<String, String>>> allQuestions = [
@@ -127,8 +128,21 @@ abstract class QuizStateBase with Store {
   @observable
   int currentIndexOfQuestion = 0;
 
+  @observable
+  bool isShowFirstResult = false;
+
+  @observable
+  bool isShowSecondResult = false;
+
+  @observable
+  bool isShowThirdResult = false;
+
+  int? _indexOfAnimal;
+
   @action
   void onConfigureQuiz(int index) {
+    _indexOfAnimal = index;
+
     var temp = [];
     temp.addAll(_animalRepository.onGetFreeAnimals());
     temp.addAll(_animalRepository.onGetPaidAnimals());
@@ -136,5 +150,66 @@ abstract class QuizStateBase with Store {
     animalModel = temp[index];
 
     questionsOfAnimal.addAll(allQuestions[index]);
+  }
+
+  @action
+  void onCheckAnswer(String answer) {
+    if (currentIndexOfQuestion == 0) {
+      isFirstAnswerCorrect =
+          questionsOfAnimal[currentIndexOfQuestion].values.first == answer;
+      isShowFirstResult = true;
+    }
+    if (currentIndexOfQuestion == 1) {
+      isSecondAnswerCorrect =
+          questionsOfAnimal[currentIndexOfQuestion].values.first == answer;
+      isShowSecondResult = true;
+    }
+    if (currentIndexOfQuestion == 2) {
+      isThirdAnswerCorrect =
+          questionsOfAnimal[currentIndexOfQuestion].values.first == answer;
+      isShowThirdResult = true;
+    }
+  }
+
+  @action
+  void onNextQuestion() {
+    isShowFirstResult = false;
+    isShowSecondResult = false;
+    isShowThirdResult = false;
+    currentIndexOfQuestion++;
+  }
+
+  @action
+  void onTryAgain() {
+    isShowFirstResult = false;
+    isShowSecondResult = false;
+    isShowThirdResult = false;
+
+    if (currentIndexOfQuestion == 0) {
+      isFirstAnswerCorrect = null;
+    } else if (currentIndexOfQuestion == 1) {
+      isSecondAnswerCorrect = null;
+    } else {
+      isThirdAnswerCorrect = null;
+    }
+  }
+
+  @action
+  void onRestartQuiz() {
+    isShowFirstResult = false;
+    isShowSecondResult = false;
+    isShowThirdResult = false;
+    isFirstAnswerCorrect = null;
+    isSecondAnswerCorrect = null;
+    isThirdAnswerCorrect = null;
+    currentIndexOfQuestion = 0;
+  }
+
+  @action
+  void onSaveSolvedResult() {
+    if (_indexOfAnimal != null && animalModel != null) {
+      animalModel!.isLock = false;
+      _animalRepository.onUpdateAnimal(_indexOfAnimal!, animalModel!);
+    }
   }
 }

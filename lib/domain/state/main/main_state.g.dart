@@ -25,6 +25,22 @@ mixin _$MainState on MainStateBase, Store {
     });
   }
 
+  late final _$currentIndexAtom =
+      Atom(name: 'MainStateBase.currentIndex', context: context);
+
+  @override
+  int? get currentIndex {
+    _$currentIndexAtom.reportRead();
+    return super.currentIndex;
+  }
+
+  @override
+  set currentIndex(int? value) {
+    _$currentIndexAtom.reportWrite(value, super.currentIndex, () {
+      super.currentIndex = value;
+    });
+  }
+
   late final _$animalModelAtom =
       Atom(name: 'MainStateBase.animalModel', context: context);
 
@@ -70,6 +86,7 @@ mixin _$MainState on MainStateBase, Store {
   String toString() {
     return '''
 animals: ${animals},
+currentIndex: ${currentIndex},
 animalModel: ${animalModel}
     ''';
   }
