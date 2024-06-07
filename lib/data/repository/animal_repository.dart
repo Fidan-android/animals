@@ -6,6 +6,9 @@ class AnimalRepository extends IAnimalRepository {
   final _animalBox = Hive.box<AnimalModel>('animal_box');
 
   @override
+  List<AnimalModel> onGetAnimals() => _animalBox.values.toList();
+
+  @override
   List<AnimalModel> onGetFreeAnimals() {
     return _animalBox.values.where((animal) => !animal.isPaid).toList();
   }

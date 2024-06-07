@@ -100,14 +100,24 @@ class _MainPageState extends State<MainPage> {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(24),
                         child: GestureDetector(
-                          onTap: () => AutoRouter.of(context)
-                              .push(
-                                AnimalRoute(
-                                    index: _mainState.animals
-                                        .indexOf(_mainState.animalModel),
-                                    animalModel: _mainState.animalModel!),
-                              )
-                              .then((value) => _mainState.onLoadAnimals()),
+                          onTap: () => {
+                            if (_mainState.animalModel?.isPaid == true &&
+                                !_mainState.isPaidPremium)
+                              {
+                                AutoRouter.of(context)
+                                    .pushNamed("/premium-page")
+                                    .then((value) => _mainState.onLoadAnimals())
+                              }
+                            else
+                              {
+                                AutoRouter.of(context)
+                                    .push(AnimalRoute(
+                                        index: _mainState.animals
+                                            .indexOf(_mainState.animalModel),
+                                        animalModel: _mainState.animalModel!))
+                                    .then((value) => _mainState.onLoadAnimals())
+                              }
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -138,14 +148,22 @@ class _MainPageState extends State<MainPage> {
                                           fit: BoxFit.fill,
                                         ),
                                       ),
-                                      Visibility(
-                                        visible: animal.isLock,
-                                        child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: SvgPicture.asset(
-                                                "assets/images/main/lock.svg"),
+                                      Observer(
+                                        builder: (_) => Visibility(
+                                          visible: _mainState
+                                                      .animalModel?.isPaid ==
+                                                  true &&
+                                              !_mainState.isPaidPremium &&
+                                              _mainState.animals.indexOf(
+                                                      _mainState.animalModel) ==
+                                                  index,
+                                          child: Align(
+                                            alignment: Alignment.topRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: SvgPicture.asset(
+                                                  "assets/images/main/lock.svg"),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -183,7 +201,8 @@ class _MainPageState extends State<MainPage> {
               ),
               Observer(
                 builder: (_) => Visibility(
-                  visible: _mainState.animalModel?.isLock == true,
+                  visible: _mainState.animalModel?.isPaid == true &&
+                      !_mainState.isPaidPremium,
                   child: Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -196,12 +215,7 @@ class _MainPageState extends State<MainPage> {
                             height: 64,
                             child: ElevatedButton(
                               onPressed: () => AutoRouter.of(context)
-                                  .push(
-                                    AnimalRoute(
-                                        index: _mainState.animals
-                                            .indexOf(_mainState.animalModel),
-                                        animalModel: _mainState.animalModel!),
-                                  )
+                                  .pushNamed("/premium-page")
                                   .then((value) => _mainState.onLoadAnimals()),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).primaryColor,

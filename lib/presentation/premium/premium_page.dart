@@ -56,7 +56,12 @@ class _PremiumPageState extends State<PremiumPage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Image.asset("assets/images/premium/animals.png"),
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height / 2.2,
+                child: Image.asset(
+                  "assets/images/premium/animals.png",
+                  fit: BoxFit.cover,
+                )),
           ),
           SafeArea(
             child: SizedBox(
@@ -100,11 +105,12 @@ class _PremiumPageState extends State<PremiumPage> {
                           ?.copyWith(
                               fontSize: 40,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                              color: Colors.white,
+                              height: 1),
                       textAlign: TextAlign.center,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 12),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Text(
                         "For \$0.99",
                         style: Theme.of(context)
@@ -118,10 +124,10 @@ class _PremiumPageState extends State<PremiumPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 32),
+                      padding: const EdgeInsets.only(top: 30),
                       child: SizedBox(
                         width: double.infinity,
-                        height: 64,
+                        height: 48,
                         child: ElevatedButton(
                           onPressed: () => _premiumState.onGetAccess(),
                           style: ElevatedButton.styleFrom(
@@ -147,7 +153,7 @@ class _PremiumPageState extends State<PremiumPage> {
                       padding: const EdgeInsets.only(top: 8),
                       child: SizedBox(
                         width: double.infinity,
-                        height: 64,
+                        height: 48,
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
@@ -178,7 +184,7 @@ class _PremiumPageState extends State<PremiumPage> {
                             child: Padding(
                               padding: const EdgeInsets.only(right: 4),
                               child: SizedBox(
-                                height: 64,
+                                height: 48,
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
@@ -206,7 +212,7 @@ class _PremiumPageState extends State<PremiumPage> {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 4),
                               child: SizedBox(
-                                height: 64,
+                                height: 48,
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(

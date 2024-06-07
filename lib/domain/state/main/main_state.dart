@@ -17,16 +17,18 @@ abstract class MainStateBase with Store {
   @observable
   ObservableList<AnimalModel> animals = ObservableList.of([]);
 
+  @observable
+  bool isPaidPremium = false;
+
   @action
   void onLoadAnimals() {
     animals.clear();
-    animals.addAll(_animalRepository.onGetFreeAnimals());
-
-    if (_storageRepository.shared<bool>(SharedKeys.subscription.key) == true) {
-      animals.addAll(_animalRepository.onGetPaidAnimals());
-    }
-
     animalModel = null;
+
+    isPaidPremium =
+        _storageRepository.shared<bool>(SharedKeys.subscription.key) ?? false;
+
+    animals.addAll(_animalRepository.onGetAnimals());
     animalModel = animals[currentIndex ?? 0];
   }
 

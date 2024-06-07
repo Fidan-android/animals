@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AnimalPage extends StatefulWidget {
-  const AnimalPage({Key? key, required this.index, required this.animalModel})
+  const AnimalPage(
+      {Key? key,
+      required this.index,
+      required this.animalModel})
       : super(key: key);
 
   final int index;
@@ -92,8 +95,10 @@ class _AnimalPageState extends State<AnimalPage> {
                                   onPressed: () => AutoRouter.of(context)
                                       .push(QuizRoute(index: widget.index))
                                       .then((value) => setState(() {
-                                            widget.animalModel.isLock =
-                                                (value as AnimalModel).isLock;
+                                            if (value != null) {
+                                              widget.animalModel.isLock =
+                                                  (value as AnimalModel).isLock;
+                                            }
                                           })),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:

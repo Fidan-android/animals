@@ -25,6 +25,22 @@ mixin _$MainState on MainStateBase, Store {
     });
   }
 
+  late final _$isPaidPremiumAtom =
+      Atom(name: 'MainStateBase.isPaidPremium', context: context);
+
+  @override
+  bool get isPaidPremium {
+    _$isPaidPremiumAtom.reportRead();
+    return super.isPaidPremium;
+  }
+
+  @override
+  set isPaidPremium(bool value) {
+    _$isPaidPremiumAtom.reportWrite(value, super.isPaidPremium, () {
+      super.isPaidPremium = value;
+    });
+  }
+
   late final _$currentIndexAtom =
       Atom(name: 'MainStateBase.currentIndex', context: context);
 
@@ -86,6 +102,7 @@ mixin _$MainState on MainStateBase, Store {
   String toString() {
     return '''
 animals: ${animals},
+isPaidPremium: ${isPaidPremium},
 currentIndex: ${currentIndex},
 animalModel: ${animalModel}
     ''';
